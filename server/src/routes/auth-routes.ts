@@ -29,8 +29,8 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: '1h', 
     });
 
-    
-    return res.status(200).json({ token });
+    res.json({token})
+    return res.status(200).json();
     
 
   } catch (error) {
