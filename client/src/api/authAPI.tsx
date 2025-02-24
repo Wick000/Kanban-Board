@@ -1,39 +1,37 @@
 import { UserLogin } from "../interfaces/UserLogin";
 
-const login = async (userInfo: UserLogin) => {
-  // TODO: make a POST request to the login route
+// Complete login function
+const login = async (userInfo: UserLogin): Promise<{ token: string }> => {
   try {
-   
+    // Send a POST request to the backend login endpoint
     const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify(userInfo),  // Send the login data (username, password)
     });
 
-    
+    // If the response is not ok, throw an error
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.message || 'Login failed');
     }
 
-    
+    // If the login is successful, parse the JSON response
     const data = await response.json();
 
-   
-    localStorage.setItem('token', data.token);
+    // Ensure the token exists and return it
+    if (data.token) {
+      return { token: data.token };
+    } else {
+      throw new Error('Token not found in response');
+    }
 
-    
-    window.location.href = '/kanban-board'; 
   } catch (error) {
     console.error('Login error:', error);
-    
-    alert('Login failed. Please try again.');
+    throw new Error('Login failed. Please try again.');
   }
 };
-
-
-
 
 export { login };
