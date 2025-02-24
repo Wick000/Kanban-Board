@@ -7,7 +7,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const SECRET_KEY = process.env.JWT_SECRET as string;
+const SECRET_KEY = process.env.JWT_SECRET_KEY as string;
 
 export const login = async (req: Request, res: Response) => {
   // TODO: If the user exists and the password is correct, return a JWT token
