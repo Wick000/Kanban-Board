@@ -21,7 +21,12 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await login(loginData);
+      if (data && data.token) {
        Auth.login(data.token);
+       window.location.href= '/kanban-board'
+      } else{
+        console.error('Invalid response from login')
+      }
     } catch (err) {
       console.error('Failed to login', err);
     }

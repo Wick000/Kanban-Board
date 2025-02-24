@@ -3,6 +3,10 @@ import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+import dotenv from 'dotenv'
+
+dotenv.config();
+
 const SECRET_KEY = process.env.JWT_SECRET as string;
 
 export const login = async (req: Request, res: Response) => {
@@ -26,8 +30,8 @@ export const login = async (req: Request, res: Response) => {
     });
 
     
-    res.json({ token });
-    return res.status(200).json()
+    return res.status(200).json({ token });
+    
 
   } catch (error) {
     console.error('Login error:', error);
