@@ -12,25 +12,18 @@ const login = async (userInfo: UserLogin): Promise<{ token: string }> => {
       body: JSON.stringify(userInfo),  // Send the login data (username, password)
     });
 
+
     // If the response is not ok, throw an error
+      const data = await response.json();
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
+      throw new Error('User information not retrieved, check network tab!');
     }
 
-    // If the login is successful, parse the JSON response
-    const data = await response.json();
-
-    // Ensure the token exists and return it
-    if (data.token) {
-      return { token: data.token };
-    } else {
-      throw new Error('Token not found in response');
-    }
-
-  } catch (error) {
-    console.error('Login error:', error);
-    throw new Error('Login failed. Please try again.');
+    return data;
+  } catch (err) {
+    console.log('Error from user login: ', err);
+    return Promise.reject('Could not fetch user info');
   }
 };
 
