@@ -34,7 +34,7 @@ class AuthService {
     // TODO: set the token to localStorage
     // TODO: redirect to the home page
     localStorage.setItem('id_token', idToken);
-    window.location.reload(); 
+    window.location.href = '/'; 
   }
 
   logout() {
